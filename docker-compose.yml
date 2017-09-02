@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  skej.web:
+    image: skej.web
+    build:
+      context: ./Skej.Web
+      dockerfile: Dockerfile
