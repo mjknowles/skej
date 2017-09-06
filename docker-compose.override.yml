@@ -1,7 +1,13 @@
 version: '3'
 
 services:
-  skej.web:
+  skej.scheduling.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  skej.spa:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

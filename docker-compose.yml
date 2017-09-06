@@ -1,8 +1,14 @@
 version: '3'
 
 services:
-  skej.web:
-    image: skej.web
+  skej.scheduling.api:
+    image: skej.scheduling.api
     build:
-      context: ./Skej.Web
+      context: ./Scheduling/Skej.Scheduling.API
+      dockerfile: Dockerfile
+
+  skej.spa:
+    image: skej.spa
+    build:
+      context: ./Web/Skej.SPA
       dockerfile: Dockerfile
