@@ -1,4 +1,5 @@
-﻿using Skej.Scheduling.Domain.SeedWork;
+﻿using NodaTime;
+using Skej.Scheduling.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Skej.Scheduling.Domain.AggregatesModel
 
         public void Add(ScheduleElement element) => _elements.Add(element);
 
-        public bool IsOccuring(string eventArg, DateTime aDate)
+        public bool IsOccuring(string eventArg, ZonedDateTime aDate)
         {
             foreach(var e in _elements)
             {
@@ -33,13 +34,13 @@ namespace Skej.Scheduling.Domain.AggregatesModel
             Expression = temporalExpression;
         }
 
-        public bool IsOccuring(string eventArg, DateTime aDate) => Event == eventArg ? Expression.Includes(aDate) : false;
+        public bool IsOccuring(string eventArg, ZonedDateTime aDate) => Event == eventArg ? Expression.Includes(aDate) : false;
         
     }
     
     public abstract class TemporalExpression
     {
-        public abstract bool Includes(DateTime aDate);
+        public abstract bool Includes(ZonedDateTime aDate);
     }
 
     /// <summary>
@@ -56,13 +57,13 @@ namespace Skej.Scheduling.Domain.AggregatesModel
             _count = count;
         }
 
-        public override bool Includes(DateTime aDate) =>  DayMatches(aDate) && WeekMatches(aDate);
-        private bool DayMatches(DateTime aDate) => aDate.Day == _dayIndex;
-        private bool WeekMatches(DateTime aDate) => _count > 0 ? WeekFromStartMatches(aDate) : WeekFromEndMatches(aDate);
-        private bool WeekFromStartMatches(DateTime aDate) => WeekInMonth(aDate.Day) == _count;
-        private bool WeekFromEndMatches(DateTime aDate) => WeekInMonth(DaysLeftInMonth(aDate) + 1) == Math.Abs(_count);
+        public override bool Includes(ZonedDateTime aDate) =>  DayMatches(aDate) && WeekMatches(aDate);
+        private bool DayMatches(ZonedDateTime aDate) => aDate.Day == _dayIndex;
+        private bool WeekMatches(ZonedDateTime aDate) => _count > 0 ? WeekFromStartMatches(aDate) : WeekFromEndMatches(aDate);
+        private bool WeekFromStartMatches(ZonedDateTime aDate) => WeekInMonth(aDate.Day) == _count;
+        private bool WeekFromEndMatches(ZonedDateTime aDate) => WeekInMonth(DaysLeftInMonth(aDate) + 1) == Math.Abs(_count);
         private int WeekInMonth(int dayNumber) => ((dayNumber - 1) / 7) + 1;
-        private int DaysLeftInMonth(DateTime aDate) => DateTime.DaysInMonth(aDate.Year, aDate.Month) - aDate.Day;
+        private int DaysLeftInMonth(ZonedDateTime aDate) => DateTime.DaysInMonth(aDate.Year, aDate.Month) - aDate.Day;
     }
     
 }
