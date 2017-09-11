@@ -13,7 +13,7 @@ namespace Skej.Scheduling.Domain.AggregatesModel.ScheduleAggregate.TemporalExpre
         private int _count;
         private IsoDayOfWeek _dayIndex;
 
-        public DayInMonth(IsoDayOfWeek dayIndex, int count)
+        public DayInMonth(IsoDayOfWeek dayIndex, int count) : base(TemporalExpressionType.DayInMonth)
         {
             _dayIndex = dayIndex;
             _count = count;

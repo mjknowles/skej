@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Skej.Scheduling.Domain.AggregatesModel.ScheduleAggregate.TemporalExpressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Skej.Scheduling.API.Application
         [DataMember]
         public string Name { get; set; }
 
-        public ScheduleEventCommand(string name)
+        public ScheduleEventCommand(string name, TemporalExpressionType temporalExpressionType)
         {
 
         }

@@ -12,7 +12,7 @@ namespace Skej.Scheduling.Domain.AggregatesModel.ScheduleAggregate.TemporalExpre
     {
         private IsoDayOfWeek _dayIndex;
 
-        public DayOfWeek(IsoDayOfWeek dayIndex)
+        public DayOfWeek(IsoDayOfWeek dayIndex) : base(TemporalExpressionType.DayOfWeek)
         {
             _dayIndex = dayIndex;
         }
