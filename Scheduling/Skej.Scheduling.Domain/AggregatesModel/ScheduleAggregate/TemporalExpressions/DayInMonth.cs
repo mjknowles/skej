@@ -11,16 +11,16 @@ namespace Skej.Scheduling.Domain.AggregatesModel.ScheduleAggregate.TemporalExpre
     public class DayInMonth : TemporalExpression
     {
         private int _count;
-        private int _dayIndex;
+        private IsoDayOfWeek _dayIndex;
 
-        public DayInMonth(int dayIndex, int count)
+        public DayInMonth(IsoDayOfWeek dayIndex, int count)
         {
             _dayIndex = dayIndex;
             _count = count;
         }
 
         public override bool Includes(LocalDateTime aDate) => DayMatches(aDate) && WeekMatches(aDate);
-        private bool DayMatches(LocalDateTime aDate) => aDate.Day == _dayIndex;
+        private bool DayMatches(LocalDateTime aDate) => aDate.DayOfWeek == _dayIndex;
         private bool WeekMatches(LocalDateTime aDate) => _count > 0 ? WeekFromStartMatches(aDate) : WeekFromEndMatches(aDate);
         private bool WeekFromStartMatches(LocalDateTime aDate) => WeekInMonth(aDate.Day) == _count;
         private bool WeekFromEndMatches(LocalDateTime aDate) => WeekInMonth(DaysLeftInMonth(aDate) + 1) == Math.Abs(_count);

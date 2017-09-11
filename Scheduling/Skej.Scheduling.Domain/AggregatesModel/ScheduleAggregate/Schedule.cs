@@ -9,7 +9,7 @@ namespace Skej.Scheduling.Domain.AggregatesModel.ScheduleAggregate
     public class Schedule : Entity, IAggregateRoot
     {
         // copy from https://github.com/mlipper/runt/blob/master/lib/runt/schedule.rb
-        private HashSet<ScheduleElement> _elements;
+        private HashSet<ScheduleElement> _elements = new HashSet<ScheduleElement>();
 
         public void Add(ScheduleElement element) => _elements.Add(element);
 
