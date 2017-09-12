@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Skej.Scheduling.API.Application
 {
-    public class ScheduleEventCommand : IRequest<bool>
+    [DataContract]
+    public class CreateScheduleElementCommand : IRequest<bool>
     {
         [DataMember]
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public ScheduleEventCommand(string name, TemporalExpressionType temporalExpressionType)
+        public CreateScheduleElementCommand(string name)
         {
-
+            Name = name;
         }
     }
 }
