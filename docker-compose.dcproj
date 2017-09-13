@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.0</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>53d50b95-671e-4e9d-979c-3bf588df814a</ProjectGuid>
+    <ProjectGuid>1e5e2deb-8e89-44a7-a906-dbde1373ffd1</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>http://localhost:{ServicePort}/api/values</DockerServiceUrl>
-    <DockerServiceName>skej.scheduling.api</DockerServiceName>
+    <DockerServiceName>scheduling.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.ci.build.yml" />
