@@ -9,9 +9,18 @@ namespace Scheduling.Domain.AggregatesModel.ScheduleAggregate
     public class Schedule : Entity, IAggregateRoot
     {
         // copy from https://github.com/mlipper/runt/blob/master/lib/runt/schedule.rb
-        private HashSet<ScheduleElement> _elements = new HashSet<ScheduleElement>();
+        private readonly HashSet<ScheduleElement> _elements = new HashSet<ScheduleElement>();
 
-        public void Add(ScheduleElement element) => _elements.Add(element);
+        public IReadOnlyCollection<ScheduleElement> ScheduleElements => _elements;
+
+        public string Name { get; }
+
+        public Schedule(string name)
+        {
+            Name = name;
+        }
+
+        public void AddScheduleElement(ScheduleElement element) => _elements.Add(element);
 
         public bool IsOccuring(string eventArg, LocalDateTime aDate)
         {

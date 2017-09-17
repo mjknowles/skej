@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Scheduling.Domain.AggregatesModel.ScheduleAggregate;
 using Scheduling.Domain.SeedWork;
+using Scheduling.Infrastructure.EntityConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,14 +16,24 @@ namespace Scheduling.Infrastructure
     {
         private readonly IMediator _mediator;
 
+        public const string DEFAULT_SCHEMA = "scheduling";
+
+        public DbSet<Schedule> Schedules { get; set; }
+
         private SchedulingContext(DbContextOptions options) : base (options) { }
 
         public SchedulingContext(DbContextOptions options, IMediator mediator) : base(options)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
-
             System.Diagnostics.Debug.WriteLine("OrderingContext::ctor ->" + this.GetHashCode());
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ClientRequestEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ScheduleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ScheduleElementEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
